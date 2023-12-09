@@ -21,7 +21,6 @@ class MyGame extends FlameGame with TapCallbacks {
   @override
   void onMount() {
     world.add(myPlayer = Player());
-    debugMode = true;
     super.onMount();
   }
 
