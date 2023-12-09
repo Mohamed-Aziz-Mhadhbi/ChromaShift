@@ -21,8 +21,12 @@ class MyGame extends FlameGame with TapCallbacks {
   @override
   void onMount() {
     world.add(myPlayer = Player());
-    world.add(RectangleComponent(
-        position: Vector2(100, 100), size: Vector2(100, 100)));
+    world.add(
+      RectangleComponent(
+        position: Vector2(100, 100),
+        size: Vector2(100, 100),
+      ),
+    );
     super.onMount();
   }
 
