@@ -15,7 +15,7 @@ class Player extends PositionComponent {
   void onMount() {
     position = Vector2(0, 0);
     size = Vector2.all(playerRadius * 2);
-    anchor = Anchor.topLeft;
+    anchor = Anchor.center;
     super.onMount();
   }
 
