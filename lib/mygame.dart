@@ -26,7 +26,12 @@ class MyGame extends FlameGame with TapCallbacks {
 
   @override
   void update(double dt) {
-    camera.viewfinder.position = myPlayer.position;
+    final cameraY = camera.viewfinder.position.y;
+    final playerY = myPlayer.position.y;
+    if (playerY < cameraY) {
+      camera.viewfinder.position = Vector2(0, playerY);
+    }
+
     super.update(dt);
   }
 
