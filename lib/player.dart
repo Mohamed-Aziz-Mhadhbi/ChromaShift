@@ -9,8 +9,10 @@ class Player extends PositionComponent {
 
   @override
   void onMount() {
-    super.onMount();
     position = Vector2(0, 0);
+    size = Vector2(100, 100);
+    super.onMount();
+    
   }
 
   @override
