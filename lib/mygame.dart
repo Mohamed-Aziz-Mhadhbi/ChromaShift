@@ -28,7 +28,7 @@ class MyGame extends FlameGame with TapCallbacks {
   void onMount() {
     world.add(Ground(position: Vector2(0, 100)));
     world.add(myPlayer = Player());
-    genrateGameComponent();
+    generateGameComponent(); // Call the method without passing a position
     super.onMount();
   }
 
@@ -49,11 +49,14 @@ class MyGame extends FlameGame with TapCallbacks {
     super.onTapDown(event);
   }
 
-  void genrateGameComponent() {
+  void generateGameComponent() {
     world.add(
       ComponentsGame(
-        position: Vector2(Random().nextDouble(), Random().nextDouble()),
-        size: Vector2(200, 200), 
+        position: Vector2(
+          Random().nextDouble() * 100,
+          Random().nextDouble() * 60,
+        ),
+        size: Vector2(200, 200),
       ),
     );
   }
