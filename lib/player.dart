@@ -8,7 +8,7 @@ class Player extends PositionComponent with HasGameRef<MyGame> {
 
   final _velocity = Vector2.zero();
   final _gravity = 980.0;
-  final _jumpSpeed = 350.0;
+  final _jumpSpeed = 300.0;
   bool _jumpingRight = true;
 
   final double playerRadius;
@@ -28,7 +28,7 @@ class Player extends PositionComponent with HasGameRef<MyGame> {
     Ground ground = gameRef.findByKeyName(Ground.keyname)!;
     if (positionOfAnchor(Anchor.bottomCenter).y > ground.position.y) {
       _velocity.setValues(0, 0);
-      position = ground.position - (size / 2);
+      position = Vector2(0, ground.position.y - (height / 2));
     } else {
       _velocity.y += _gravity * dt;
     }
