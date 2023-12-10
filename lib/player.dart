@@ -1,9 +1,12 @@
+import 'package:chroma_shift/components.dart';
 import 'package:chroma_shift/ground.dart';
 import 'package:chroma_shift/mygame.dart';
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
-class Player extends PositionComponent with HasGameRef<MyGame> {
+class Player extends PositionComponent
+    with HasGameRef<MyGame>, CollisionCallbacks {
   Player({this.playerRadius = 15});
 
   final _velocity = Vector2.zero();
@@ -12,6 +15,15 @@ class Player extends PositionComponent with HasGameRef<MyGame> {
   bool _jumpingRight = true;
 
   final double playerRadius;
+
+  @override
+  void onLoad() {
+    super.onLoad();
+    add(CircleHitbox(
+      radius: playerRadius,
+      anchor: anchor,
+    ));
+  }
 
   @override
   void onMount() {
@@ -53,5 +65,19 @@ class Player extends PositionComponent with HasGameRef<MyGame> {
       _velocity.x = -_jumpSpeed;
     }
     _jumpingRight = !_jumpingRight;
+  }
+
+  @override
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+    super.onCollision(intersectionPoints, other);
+    if (other is ComponentsGame) {}
+  }
+
+  @override
+  void onCollisionEnd(PositionComponent other) {
+    super.onCollisionEnd(other);
+    if (other is ComponentsGame) {
+      other.removeFromParent();
+    }
   }
 }
