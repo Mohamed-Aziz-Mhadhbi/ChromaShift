@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:chroma_shift/components.dart';
 import 'package:chroma_shift/ground.dart';
 import 'package:chroma_shift/player.dart';
@@ -13,6 +12,7 @@ class MyGame extends FlameGame
   late Player myPlayer;
   late double screenWidth;
   late double screenHeight;
+  double componentSpeed = 100.0; 
 
   MyGame()
       : super(
@@ -42,6 +42,14 @@ class MyGame extends FlameGame
       camera.viewfinder.position = Vector2(0, playerY);
     }
 
+    for (final component in world.children.whereType<ComponentsGame>()) {
+      component.position.y -= componentSpeed * dt;
+
+      if (component.position.y + component.size.y < 0) {
+        world.remove(component);
+      }
+    }
+
     super.update(dt);
   }
 
@@ -50,43 +58,41 @@ class MyGame extends FlameGame
     myPlayer.jump();
     super.onTapDown(event);
   }
-void generateGameComponent() async {
-  var componentSize = Vector2(40, 40);
-  const minDistanceX = 50.0;
-  const maxDistanceX = 200.0;
-  const minDistanceY = 50.0;
-  const maxDistanceY = 200.0;
 
-  Ground ground = gameRef.findByKeyName(Ground.keyname)!;
-  
-  final groundPosition = ground.position;
-  final groundHeight = ground.height;
+  void generateGameComponent() async {
+    var componentSize = Vector2(40, 40);
+    const minDistanceX = 100.0;
+    const maxDistanceX = 200.0;
+    const minDistanceY = 50.0;
+    const maxDistanceY = 200.0;
 
-  while (true) {
-    final distanceX = Random().nextDouble() * (maxDistanceX - minDistanceX) + minDistanceX;
-    final distanceY = Random().nextDouble() * (maxDistanceY - minDistanceY) + minDistanceY;
+    const groundPosition = 0;
+    const groundHeight = 100;
 
-    final rows = (groundHeight / distanceY).floor();
-    final cols = (600 / distanceX).floor();
+    while (true) {
+      final distanceX =
+          Random().nextDouble() * (maxDistanceX - minDistanceX) + minDistanceX;
+      final distanceY =
+          Random().nextDouble() * (maxDistanceY - minDistanceY) + minDistanceY;
 
-    for (int row = 0; row < rows; row++) {
-      for (int col = 0; col < cols; col++) {
-        world.add(
-          ComponentsGame(
-            position: Vector2(
-              groundPosition.x + col * distanceX,
-              groundPosition.y - groundHeight - row * distanceY,
+      final rows = (1000 / distanceY).floor();
+      final cols = (600 / distanceX).floor();
+
+      for (int row = 0; row < rows; row++) {
+        for (int col = 0; col < cols; col++) {
+          world.add(
+            ComponentsGame(
+              position: Vector2(
+                groundPosition + col * distanceX,
+                groundPosition - groundHeight - row * distanceY,
+              ),
+              size: componentSize,
             ),
-            size: componentSize,
-          ),
-        );
+          );
+        }
       }
+
+      await Future.delayed(const Duration(seconds: 1));
     }
-
-    // Adjust the delay based on your desired spawn rate
-    await Future.delayed(const Duration(seconds: 1));
   }
-}
-
-
 }
