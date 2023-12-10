@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:chroma_shift/components.dart';
 import 'package:chroma_shift/ground.dart';
 import 'package:chroma_shift/player.dart';
@@ -48,12 +50,28 @@ class MyGame extends FlameGame
     myPlayer.jump();
     super.onTapDown(event);
   }
+void generateGameComponent() async {
+  var componentSize = Vector2(40, 40);
+  const minDistanceX = 50.0;
+  const maxDistanceX = 200.0;
+  const minDistanceY = 50.0;
+  const maxDistanceY = 200.0;
 
-  void generateGameComponent() {
-    const distanceX = 100.0;
-    const distanceY = 100.0;
+  Ground ground = gameRef.findByKeyName(Ground.keyname)!;
 
-    final rows = (1000 / distanceY).floor();
+  if (ground == null) {
+    print('Ground not found. Make sure it is added to the world.');
+    return;
+  }
+
+  final groundPosition = ground.position;
+  final groundHeight = ground.height;
+
+  while (true) {
+    final distanceX = Random().nextDouble() * (maxDistanceX - minDistanceX) + minDistanceX;
+    final distanceY = Random().nextDouble() * (maxDistanceY - minDistanceY) + minDistanceY;
+
+    final rows = (groundHeight / distanceY).floor();
     final cols = (600 / distanceX).floor();
 
     for (int row = 0; row < rows; row++) {
@@ -61,13 +79,19 @@ class MyGame extends FlameGame
         world.add(
           ComponentsGame(
             position: Vector2(
-              distanceX,
-              distanceY,
+              groundPosition.x + col * distanceX,
+              groundPosition.y - groundHeight - row * distanceY,
             ),
-            size: Vector2(40, 40),
+            size: componentSize,
           ),
         );
       }
     }
+
+    // Adjust the delay based on your desired spawn rate
+    await Future.delayed(const Duration(seconds: 1));
   }
+}
+
+
 }
