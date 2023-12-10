@@ -28,7 +28,8 @@ class MyGame extends FlameGame with TapCallbacks {
   void onMount() {
     world.add(Ground(position: Vector2(0, 100)));
     world.add(myPlayer = Player());
-    generateGameComponent(); // Call the method without passing a position
+    debugMode = true;
+    generateGameComponent();
     super.onMount();
   }
 
