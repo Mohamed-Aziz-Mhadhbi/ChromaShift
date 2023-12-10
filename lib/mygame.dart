@@ -6,7 +6,8 @@ import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
 
-class MyGame extends FlameGame with TapCallbacks, HasCollisionDetection {
+class MyGame extends FlameGame
+    with TapCallbacks, HasCollisionDetection, HasGameRef<MyGame> {
   late Player myPlayer;
   late double screenWidth;
   late double screenHeight;
@@ -23,12 +24,12 @@ class MyGame extends FlameGame with TapCallbacks, HasCollisionDetection {
   Color backgroundColor() => const Color(0xff444444);
 
   @override
-  void onMount() {
+  Future<void> onLoad() async {
+    await super.onLoad();
     world.add(Ground(position: Vector2(0, 100)));
     world.add(myPlayer = Player());
     debugMode = true;
     generateGameComponent();
-    super.onMount();
   }
 
   @override
@@ -49,8 +50,8 @@ class MyGame extends FlameGame with TapCallbacks, HasCollisionDetection {
   }
 
   void generateGameComponent() {
-    const distanceX = 300.0;
-    const distanceY = 300.0;
+    const distanceX = 100.0;
+    const distanceY = 100.0;
 
     final rows = (1000 / distanceY).floor();
     final cols = (600 / distanceX).floor();
@@ -60,8 +61,8 @@ class MyGame extends FlameGame with TapCallbacks, HasCollisionDetection {
         world.add(
           ComponentsGame(
             position: Vector2(
-              col * distanceX,
-              row * distanceY,
+              distanceX,
+              distanceY,
             ),
             size: Vector2(40, 40),
           ),

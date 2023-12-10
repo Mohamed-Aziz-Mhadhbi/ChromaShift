@@ -1,7 +1,8 @@
+import 'package:chroma_shift/mygame.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
-class Ground extends PositionComponent {
+class Ground extends PositionComponent with HasGameRef<MyGame> {
   static const String keyname = 'single_ground_key';
   Ground({required super.position})
       : super(
