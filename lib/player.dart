@@ -1,3 +1,4 @@
+import 'package:chroma_shift/ground.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +24,8 @@ class Player extends PositionComponent {
   void update(double dt) {
     super.update(dt);
     position += _velocity * dt;
+    Ground ground;
+    ground.position.y;
     _velocity.y += _gravity * dt;
   }
 

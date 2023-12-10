@@ -8,6 +8,7 @@ class Ground extends PositionComponent {
       : super(
           size: Vector2(100, 1),
           anchor: Anchor.center,
+          key: ComponentKey.named("ground"),
         );
   @override
   void render(Canvas canvas) {
