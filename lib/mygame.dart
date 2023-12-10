@@ -58,12 +58,7 @@ void generateGameComponent() async {
   const maxDistanceY = 200.0;
 
   Ground ground = gameRef.findByKeyName(Ground.keyname)!;
-
-  if (ground == null) {
-    print('Ground not found. Make sure it is added to the world.');
-    return;
-  }
-
+  
   final groundPosition = ground.position;
   final groundHeight = ground.height;
 
