@@ -8,7 +8,7 @@ class MyGame extends FlameGame with TapCallbacks {
   late Player myPlayer;
   MyGame() : super(camera: CameraComponent()) {
     final screenSize =
-        MediaQueryData.fromWindow(WidgetsBinding.instance!.window).size;
+        MediaQueryData.fromView(WidgetsBinding.instance.window).size;
 
     camera = CameraComponent.withFixedResolution(
       width: screenSize.width,
