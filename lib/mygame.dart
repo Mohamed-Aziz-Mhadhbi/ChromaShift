@@ -6,14 +6,15 @@ import 'package:flame/game.dart';
 
 class MyGame extends FlameGame with TapCallbacks {
   late Player myPlayer;
+  MyGame() : super(camera: CameraComponent()) {
+    final screenSize =
+        MediaQueryData.fromWindow(WidgetsBinding.instance!.window).size;
 
-  MyGame()
-      : super(
-          camera: CameraComponent.withFixedResolution(
-            width: 600,
-            height: 1000,
-          ),
-        );
+    camera = CameraComponent.withFixedResolution(
+      width: screenSize.width,
+      height: screenSize.height,
+    );
+  }
 
   @override
   Color backgroundColor() => const Color(0xff444444);
