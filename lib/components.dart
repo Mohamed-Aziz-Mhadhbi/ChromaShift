@@ -52,8 +52,7 @@ class ComponentsGame extends PositionComponent with CollisionCallbacks {
   @override
   void render(Canvas canvas) {
     canvas.drawRect(
-      Rect.fromLTWH(0, 0, Random().nextDouble() * thickness,
-          Random().nextDouble() * thickness),
+      Rect.fromLTWH(0, 0, thickness, thickness),
       Paint()..color = paint,
     );
     super.render(canvas);

@@ -51,7 +51,7 @@ class MyGame extends FlameGame with TapCallbacks, HasCollisionDetection {
   }
 
   void generateGameComponent() {
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
       world.add(
         ComponentsGame(
           position: Vector2(
