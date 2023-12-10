@@ -1,3 +1,4 @@
+import 'package:chroma_shift/components.dart';
 import 'package:chroma_shift/ground.dart';
 import 'package:chroma_shift/player.dart';
 import 'package:flame/components.dart';
@@ -21,8 +22,9 @@ class MyGame extends FlameGame with TapCallbacks {
 
   @override
   void onMount() {
-    world.add(Ground(position: Vector2(0, 100))); 
-    world.add(myPlayer = Player()); 
+    world.add(Ground(position: Vector2(0, 100)));
+    world.add(myPlayer = Player());
+    genrateGameComponent();
     super.onMount();
   }
 
@@ -41,5 +43,14 @@ class MyGame extends FlameGame with TapCallbacks {
   void onTapDown(TapDownEvent event) {
     myPlayer.jump();
     super.onTapDown(event);
+  }
+
+  void genrateGameComponent() {
+    world.add(
+      ComponentsGame(
+        position: Vector2(0, 300),
+        size: Vector2(200, 200),
+      ),
+    );
   }
 }
