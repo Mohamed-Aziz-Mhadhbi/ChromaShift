@@ -32,7 +32,6 @@ class MyGame extends FlameGame
     await super.onLoad();
     world.add(Ground(position: Vector2(0, 100)));
     world.add(myPlayer = Player());
-    debugMode = true;
     generateGameComponent();
   }
 
