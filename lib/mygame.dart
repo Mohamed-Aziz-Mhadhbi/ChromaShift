@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:chroma_shift/components.dart';
 import 'package:chroma_shift/ground.dart';
 import 'package:chroma_shift/player.dart';
@@ -51,16 +49,24 @@ class MyGame extends FlameGame with TapCallbacks, HasCollisionDetection {
   }
 
   void generateGameComponent() {
-    for (int i = 0; i < 100; i++) {
-      world.add(
-        ComponentsGame(
-          position: Vector2(
-            Random().nextDouble() * (600 - 200),
-            Random().nextDouble() * (1000 - 200),
+    const distanceX = 300.0;
+    const distanceY = 300.0;
+
+    final rows = (1000 / distanceY).floor();
+    final cols = (600 / distanceX).floor();
+
+    for (int row = 0; row < rows; row++) {
+      for (int col = 0; col < cols; col++) {
+        world.add(
+          ComponentsGame(
+            position: Vector2(
+              col * distanceX,
+              row * distanceY,
+            ),
+            size: Vector2(200, 200),
           ),
-          size: Vector2(200, 200),
-        ),
-      );
+        );
+      }
     }
   }
 }
