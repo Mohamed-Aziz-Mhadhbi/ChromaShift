@@ -8,7 +8,7 @@ import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
 
-class MyGame extends FlameGame with TapCallbacks {
+class MyGame extends FlameGame with TapCallbacks, HasCollisionDetection {
   late Player myPlayer;
   late double screenWidth;
   late double screenHeight;
