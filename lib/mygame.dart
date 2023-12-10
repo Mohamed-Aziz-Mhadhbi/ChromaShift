@@ -63,7 +63,7 @@ class MyGame extends FlameGame with TapCallbacks, HasCollisionDetection {
               col * distanceX,
               row * distanceY,
             ),
-            size: Vector2(200, 200),
+            size: Vector2(40, 40),
           ),
         );
       }
