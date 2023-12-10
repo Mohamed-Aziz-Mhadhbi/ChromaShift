@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:chroma_shift/components.dart';
 import 'package:chroma_shift/ground.dart';
 import 'package:chroma_shift/player.dart';
@@ -8,6 +10,8 @@ import 'package:flame/game.dart';
 
 class MyGame extends FlameGame with TapCallbacks {
   late Player myPlayer;
+  late double screenWidth;
+  late double screenHeight;
 
   MyGame()
       : super(
@@ -48,7 +52,7 @@ class MyGame extends FlameGame with TapCallbacks {
   void genrateGameComponent() {
     world.add(
       ComponentsGame(
-        position: Vector2(0, 300),
+        position: Vector2(Random().nextDouble(), Random().nextDouble()),
         size: Vector2(200, 200),
       ),
     );
