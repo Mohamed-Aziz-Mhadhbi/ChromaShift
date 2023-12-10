@@ -53,7 +53,7 @@ class MyGame extends FlameGame with TapCallbacks {
     world.add(
       ComponentsGame(
         position: Vector2(Random().nextDouble(), Random().nextDouble()),
-        size: Vector2(200, 200),
+        size: Vector2(200, 200), 
       ),
     );
   }
