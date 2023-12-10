@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:chroma_shift/components.dart';
 import 'package:chroma_shift/ground.dart';
 import 'package:chroma_shift/mygame.dart';
@@ -37,6 +39,10 @@ class Player extends PositionComponent
   void update(double dt) {
     super.update(dt);
     position += _velocity * dt;
+
+    // Update camera position to follow the player
+    gameRef.camera.viewfinder.position.y = max(0, position.y - 1000 / 2);
+
     Ground ground = gameRef.findByKeyName(Ground.keyname)!;
     if (positionOfAnchor(Anchor.bottomCenter).y > ground.position.y) {
       _velocity.setValues(0, 0);
@@ -86,6 +92,8 @@ class Player extends PositionComponent
   @override
   void onCollisionEnd(PositionComponent other) {
     super.onCollisionEnd(other);
-    if (other is ComponentsGame) {}
+    if (other is ComponentsGame) {
+      // If needed, add logic for camera behavior when the collision ends
+    }
   }
 }

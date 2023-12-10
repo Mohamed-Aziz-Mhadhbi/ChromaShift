@@ -12,12 +12,14 @@ class MyGame extends FlameGame
   late Player myPlayer;
   late double screenWidth;
   late double screenHeight;
-  double componentSpeed = 100.0; 
+  double componentSpeed = 100.0;
+  int componentCounter = 0;
+  int maxComponents = 10;
 
   MyGame()
       : super(
           camera: CameraComponent.withFixedResolution(
-            width: 600,
+            width: 800,
             height: 1000,
           ),
         );
@@ -45,8 +47,14 @@ class MyGame extends FlameGame
     for (final component in world.children.whereType<ComponentsGame>()) {
       component.position.y -= componentSpeed * dt;
 
-      if (component.position.y + component.size.y < 0) {
+      if (component.position.x + component.size.x < 0) {
         world.remove(component);
+        componentCounter--;
+
+        // Check if the maximum number of components is reached
+        if (componentCounter >= maxComponents) {
+          return;
+        }
       }
     }
 
@@ -69,7 +77,7 @@ class MyGame extends FlameGame
     const groundPosition = 0;
     const groundHeight = 100;
 
-    while (true) {
+    while (componentCounter < maxComponents) {
       final distanceX =
           Random().nextDouble() * (maxDistanceX - minDistanceX) + minDistanceX;
       final distanceY =
@@ -89,6 +97,11 @@ class MyGame extends FlameGame
               size: componentSize,
             ),
           );
+
+          componentCounter++;
+          if (componentCounter >= maxComponents) {
+            return;
+          }
         }
       }
 
