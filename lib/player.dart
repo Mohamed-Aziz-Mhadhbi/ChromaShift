@@ -70,14 +70,22 @@ class Player extends PositionComponent
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
-    if (other is ComponentsGame) {}
+
+    if (other is ComponentsGame) {
+      Ground ground = gameRef.findByKeyName(Ground.keyname)!;
+      final targetX = ground.position.x;
+      final targetY = ground.position.y - (height / 2);
+
+      final direction =
+          Vector2(targetX - position.x, targetY - position.y).normalized();
+
+      _velocity.setValues(direction.x * _jumpSpeed, direction.y * _jumpSpeed);
+    }
   }
 
   @override
   void onCollisionEnd(PositionComponent other) {
     super.onCollisionEnd(other);
-    if (other is ComponentsGame) {
-      other.removeFromParent();
-    }
+    if (other is ComponentsGame) {}
   }
 }
