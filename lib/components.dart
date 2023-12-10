@@ -27,7 +27,8 @@ class ComponentsGame extends PositionComponent {
   @override
   void render(Canvas canvas) {
     canvas.drawRect(
-      Rect.fromLTWH(0, 0,  Random().nextDouble() *  (size.x / 2), Random().nextDouble() *  (size.y / 2)),
+      Rect.fromLTWH(0, 0, Random().nextDouble() * (size.x / 2),
+          Random().nextDouble() * (size.y / 2)),
       Paint()..color = randomColor,
     );
     super.render(canvas);
